@@ -1,0 +1,25 @@
+#!/bin/bash
+# Set defaults if needed
+if [ -z "$BUILD_SERVER_URL" ]; then BUILD_SERVER_URL="http://localhost";fi
+if [ -z "$TC_AGENT_NAME" ]; then TC_AGENT_NAME="default-agent";fi
+if [ -z "$TC_AGENT_HOME" ]; then TC_AGENT_HOME=/opt/tcbuildagent;fi
+if [ -z "$TC_AGENT_LOG_DIR" ]; then TC_AGENT_LOG_DIR=/opt/tcbuildagent/logs;fi
+if [ -z "$TEAMCITY_AGENT_MEM_OPTS" ]; then TEAMCITY_AGENT_MEM_OPTS="-Xmx387m -Xss256k";fi
+
+# Update configuration
+sed -i 's@serverUrl=.*@serverUrl='"$BUILD_SERVER_URL"'@' $TC_AGENT_HOME/conf/buildAgent.properties
+sed -i 's@name=.*@name='"$TC_AGENT_NAME"'@' $TC_AGENT_HOME/conf/buildAgent.properties
+
+# Start agent
+${TC_AGENT_HOME}/bin/agent.sh start
+
+while [ ! -f ${TC_AGENT_LOG_DIR}/teamcity-agent.log ];
+do
+   echo -n "."
+   sleep 1
+done
+
+trap "${TC_AGENT_HOME}/bin/agent.sh stop; exit 0;" SIGINT SIGTERM SIGHUP
+
+tail -qF ${TC_AGENT_LOG_DIR}/teamcity-agent.log &
+wait

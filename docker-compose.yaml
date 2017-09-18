@@ -1,0 +1,15 @@
+version: '2'
+services:
+  ltcagent:
+    build: 
+      context: .
+      args:
+        HTTP_PROXY: "${HTTP_PROXY}"
+        HTTPS_PROXY: "${HTTPS_PROXY}"
+        BUILD_SERVER_URL: "${BUILD_SERVER_URL}"
+        TC_AGENT_HOME: "${TC_AGENT_HOME}"
+        TC_USER_HOME: "${TC_USER_HOME}"
+    image: "${DOCKER_REGISTRY}:${DOCKER_REGISTRY_PORT}/eloqua/skynet/tcagent-core-oel7:dev"
+    env_file:
+     - .env
+    container_name: tcagent-core
