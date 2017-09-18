@@ -10,6 +10,15 @@ if [ -z "$TEAMCITY_AGENT_MEM_OPTS" ]; then TEAMCITY_AGENT_MEM_OPTS="-Xmx387m -Xs
 sed -i 's@serverUrl=.*@serverUrl='"$BUILD_SERVER_URL"'@' $TC_AGENT_HOME/conf/buildAgent.properties
 sed -i 's@name=.*@name='"$TC_AGENT_NAME"'@' $TC_AGENT_HOME/conf/buildAgent.properties
 
+if [ -n "$TC_AGENT_BUILD_PROPERTIES" ];
+  then echo "# Build Script Properties" >> $TC_AGENT_HOME/conf/buildAgent.properties
+  echo $TC_AGENT_BUILD_PROPERTIES | tr , '\n' >> $TC_AGENT_HOME/conf/buildAgent.properties
+fi
+if [ -n "$TC_AGENT_ENV_VARIABLES" ]; 
+  then echo "# Environment Variables" >> $TC_AGENT_HOME/conf/buildAgent.properties
+  echo $TC_AGENT_ENV_VARIABLES | tr , '\n' >> $TC_AGENT_HOME/conf/buildAgent.properties
+fi
+
 # Start agent
 ${TC_AGENT_HOME}/bin/agent.sh start
 
