@@ -1,0 +1,15 @@
+version: '2'
+services:
+  ltcagent-rvm:
+    build: 
+      context: ./agent-rvm
+      args:
+        HTTP_PROXY: "${HTTP_PROXY}"
+        HTTPS_PROXY: "${HTTPS_PROXY}"
+        NO_PROXY: "${NO_PROXY}"
+        DOCKER_REGISTRY: "${DOCKER_REGISTRY}"
+        DOCKER_REGISTRY_PORT: "${DOCKER_REGISTRY_PORT}"
+    image: "${DOCKER_REGISTRY}:${DOCKER_REGISTRY_PORT}/eloqua/skynet/tcagent-rvm-oel7"
+    env_file:
+     - .env
+    container_name: tcagent-rvm

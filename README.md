@@ -1,4 +1,5 @@
 ### Base OEL image for linux teamcity agents
+The image is intended to be used as a base for creating customized linux agents. Therefore there is no entrypoint. To use it as a default linux agent you must modify the Dockerfile add a "USER teamcity" directive and an entrypoint to /tcagent-core.
 
 Available environment attributes:
 * `HTTP_PROXY`=<proxy value>

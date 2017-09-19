@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Do any prep work for the tcagent-rvm
+
+/tcagent-core

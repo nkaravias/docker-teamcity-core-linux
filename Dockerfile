@@ -19,8 +19,9 @@ rm -rf /tmp/buildAgent.zip && \
 chown teamcity:teamcity $TC_AGENT_HOME* -R && \
 chmod u+x $TC_AGENT_HOME/bin/*.sh
 
-ADD bin/tcagent-core /tcagent
+ADD bin/tcagent-core /tcagent-core
 ADD conf/buildAgent.properties $TC_AGENT_HOME/conf/
 
-USER teamcity
-CMD ["/tcagent"]
+# To use as a base image keep the following lines commented out.
+#USER teamcity
+#CMD ["/tcagent-core"]
