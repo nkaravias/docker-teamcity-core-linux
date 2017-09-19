@@ -11,6 +11,9 @@ Available environment attributes:
 * `TC_AGENT_LOG_DIR`=defaults /opt/tcbuildagent/logs
 * `TC_USER_HOME`=defaults /scratch/teamcity
 * `TEAMCITY_AGENT_MEM_OPTS`=defaults to -Xmx387m -Xss256k - pass any JVM options you need to
+# Enable for build properties or environment variables. Syntax should strictly be csv with key=value pairs e.g:
+* TC_AGENT_BUILD_PROPERTIES=system.chef.roles.qa=1,system.chef.roles.tcbuildagent=1
+* TC_AGENT_ENV_VARIABLES=env.LC_ALL_TEST=test
 
 
 Developer workflow:
@@ -28,5 +31,4 @@ The logs at teamcity-agent.log are also tailed to stdout
 
 All runtime commands run as the teamcity user
 
-IMPORTANT: For additional agent types the core image can be used. In such a case the /tcagent script should always be executed last and in order for the agent to start. So if we need to a new image e.g tcagent-linux-ruby-2.3, we can inherit the core image and leave an entry point called tcagent-linux-ruby.sh. That script should be responsible for any work required for prepering the ruby agent and at the end simply call /tcagent.sh.
-
+IMPORTANT: For additional agent types the core image can be used. In such a case the /tcagent script should always be executed last and in order for the agent to start. So if we need to add a new image e.g tcagent-linux-ruby-2.3, we can inherit the core image and leave an entry point called something like tcagent-linux-ruby. That script should be responsible for any work required for preparing the ruby agent and at the end simply call the core /tcagent script.
