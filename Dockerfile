@@ -1,11 +1,14 @@
 FROM oraclelinux
 MAINTAINER nikolas.karavias@oracle.com
 
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
 ARG BUILD_SERVER_URL 
 ARG TC_USER_HOME 
 ARG TC_AGENT_HOME
 
 ENV JAVA_HOME=/usr/lib/jvm/jre-openjdk
+RUN if [[ ! -z "$HTTP_PROXY" ]] || [[ ! -z "$HTTPS_PROXY" ]]; then echo -e "proxy=$HTTP_PROXY\nproxy=$HTTPS_PROXY" >> /etc/yum.conf; fi
 
 RUN yum install java-1.8.0-openjdk.x86_64 unzip -y && yum clean all
 RUN mkdir /scratch && groupadd teamcity && \

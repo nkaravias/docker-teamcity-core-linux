@@ -3,9 +3,10 @@
 Available environment attributes:
 * `HTTP_PROXY`=<proxy value>
 * `HTTPS_PROXY`=<proxy value>
+* `NO_PROXY`=<no_proxy values>
 * `DOCKER_REGISTRY`=10.88.249.32
 * `DOCKER_REGISTRY_PORT`=5000
-* `BUILD_SERVER_URL`=http://build-eloqua.us.oracle.com
+* `BUILD_SERVER_URL`=<build server uri - defaults to http://localhost:8111>
 * `TC_AGENT_NAME`=
 * `TC_AGENT_HOME`=defaults /opt/tcbuildagent
 * `TC_AGENT_LOG_DIR`=defaults /opt/tcbuildagent/logs
